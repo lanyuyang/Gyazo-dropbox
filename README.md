@@ -7,9 +7,10 @@ Download & install it from: [Mac](https://github.com/lanyuyang/Gyazo-dropbox/blo
 During the first-run, bind Gyazo-box with your Dropbox account  
 https://www.dropbox.com/s/sksons7ug41l2ou/2d39425b-d9df-4a07-ae61-dacae7de82e5.png
 
-Then enjoy it !
+The grabbed pictures is in your Dropbox's Apps/Gyazo-box folder. You can manage them manually.
 
+Enjoy it !
 
 ## About
 
-Based on the great work of [Gyazo](https://gyazo.com) and [Dropbox-Uploader](https://github.com/andreafabrizi/Dropbox-Uploader)
+Based on the great work of [Gyazo](https://gyazo.com/en) and [Dropbox-Uploader](https://github.com/andreafabrizi/Dropbox-Uploader)
