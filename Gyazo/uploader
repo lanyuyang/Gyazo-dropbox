@@ -842,6 +842,18 @@ function db_share
     fi
 }
 
+function req_permission
+{
+    time=$(utime)
+    $CURL_BIN $CURL_ACCEPT_CERTIFICATES -s --show-error --globoff -i -o $RESPONSE_FILE --data "oauth_consumer_key=$APPKEY&oauth_signature_method=PLAINTEXT&oauth_signature=$APPSECRET%26&oauth_timestamp=$time&oauth_nonce=$RANDOM" "$API_REQUEST_TOKEN_URL" 2> /dev/null
+    check_curl_status
+    OAUTH_TOKEN_SECRET=$(sed -n 's/oauth_token_secret=\([a-z A-Z 0-9]*\).*/\1/p' "$RESPONSE_FILE")
+    OAUTH_TOKEN=$(sed -n 's/.*oauth_token=\([a-z A-Z 0-9]*\)/\1/p' "$RESPONSE_FILE")
+
+    open "${API_USER_AUTH_URL}?oauth_token=$OAUTH_TOKEN"
+    exit 1
+}
+
 ################
 #### SETUP  ####
 ################
@@ -917,14 +929,7 @@ else
     #echo -ne "\n > Token request... "
     RESPONSE_FILE="$TMP_DIR/.gayzobox_oauth.$(whoami)"
     if [ ! -f $RESPONSE_FILE ]; then
-        time=$(utime)
-        $CURL_BIN $CURL_ACCEPT_CERTIFICATES -s --show-error --globoff -i -o $RESPONSE_FILE --data "oauth_consumer_key=$APPKEY&oauth_signature_method=PLAINTEXT&oauth_signature=$APPSECRET%26&oauth_timestamp=$time&oauth_nonce=$RANDOM" "$API_REQUEST_TOKEN_URL" 2> /dev/null
-        check_curl_status
-        OAUTH_TOKEN_SECRET=$(sed -n 's/oauth_token_secret=\([a-z A-Z 0-9]*\).*/\1/p' "$RESPONSE_FILE")
-        OAUTH_TOKEN=$(sed -n 's/.*oauth_token=\([a-z A-Z 0-9]*\)/\1/p' "$RESPONSE_FILE")
-
-        open "${API_USER_AUTH_URL}?oauth_token=$OAUTH_TOKEN"
-        exit 1
+        req_permission
     else
         OAUTH_TOKEN_SECRET=$(sed -n 's/oauth_token_secret=\([a-z A-Z 0-9]*\).*/\1/p' "$RESPONSE_FILE")
         OAUTH_TOKEN=$(sed -n 's/.*oauth_token=\([a-z A-Z 0-9]*\)/\1/p' "$RESPONSE_FILE")
@@ -965,9 +970,8 @@ else
 
             echo -ne "\n Setup completed!\n"
         else
-            remove_temp_files
-            exit 1
             print " FAILED\n"
+            req_permission
         fi
 
     fi
