@@ -1,5 +1,5 @@
 # Gyazo-dropbox
-### Capture screen, upload to Dropbox and get sharable link within one drag : ) ###
+#### Capture screen, upload to Dropbox and get sharable link within one drag ####
 
 ## Usage
 Download & install it from [here](https://github.com/lanyuyang/Gyazo-dropbox/blob/master/Gyazo-dropbox.dmg?raw=true)
