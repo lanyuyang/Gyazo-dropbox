@@ -10,17 +10,15 @@ def uuid
   "%08x-%04x-%04x-%04x-%04x%08x" % ary
 end
 
-# get id
 user = IO.popen("whoami", "r+").gets.chomp
 program = ARGV[0].to_s
-idfile = "/Users/#{user}/Library/Gyazo/id"
-old_idfile = File.dirname(program) + "/gyazo.app/Contents/Resources/id"
+dbconf = "/Users/#{user}/Library/Gyazo/dropbox"
 
-id = ''
-if File.exist?(idfile) then
-  id = File.read(idfile).chomp
-elsif File.exist?(old_idfile) then
-  id = File.read(old_idfile).chomp
+if not File.exist?(dbconf) then
+  system "mkdir -p #{File.dirname(dbconf)}"
+  system "bash #{File.dirname(__FILE__)}/uploader"
+  ret = $?.exitstatus
+  exit 0 if $?.exitstatus == 1
 end
 
 # capture png file
@@ -42,8 +40,8 @@ if !File.exist?(tmpfile) then
 end
 
 #imagedata = File.read(tmpfile)
-system "#{File.dirname(__FILE__)}/dropbox_uploader.sh upload #{tmpfile} #{name}"
-output=`#{File.dirname(__FILE__)}/dropbox_uploader.sh share #{name}`
+system "bash #{File.dirname(__FILE__)}/uploader upload #{tmpfile} #{name}"
+output=`bash #{File.dirname(__FILE__)}/uploader share #{name}`
 url = /https[\S]+/.match(output)[0]
 File.delete(tmpfile)
 system "open #{url}"
