@@ -1,15 +1,16 @@
-# Gyazo
+# Gyazo-dropbox
+#### Capture screen, upload to Dropbox and get sharable link within one drag ####
 
-Copyright (c) 2009 Toshiyuki Masui
-This software is licensed under the GPL
+## Usage
+Download & install it from: [Mac](https://github.com/lanyuyang/Gyazo-dropbox/blob/master/Gyazo-dropbox.dmg?raw=true)
 
-For more details, see
-http://gyazo.com/
+During the first-run, bind Gyazo-box with your Dropbox account  
+https://www.dropbox.com/s/sksons7ug41l2ou/2d39425b-d9df-4a07-ae61-dacae7de82e5.png
 
-Special Thanks:
-Icon Designed by Takeru Yoshihara
+The grabbed pictures is in your Dropbox's Apps/Gyazo-box folder. You can manage them manually.
 
-There are several versions of Gyazo:
-Gyazo for Mac OS X: originaly developed by Toshiyuki Masui, 
-Gyazo for Windows (Gyazowin)  and 
-Gyazo for Linux.
+Enjoy it !
+
+## About
+
+Based on the great work of [Gyazo](https://gyazo.com/en) and [Dropbox-Uploader](https://github.com/andreafabrizi/Dropbox-Uploader)
